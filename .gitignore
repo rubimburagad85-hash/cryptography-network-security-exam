@@ -1,0 +1,15 @@
+# NEVER commit secrets or real data
+*.key
+*.pem
+.ulk_keys/
+*.env
+__pycache__/
+*.pyc
+# generated at run time
+data/*.decrypted
+tests/tmp/
+# LaTeX build junk
+*.aux
+*.log
+*.out
+*.toc

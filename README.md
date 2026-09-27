@@ -11,22 +11,19 @@ risk assessment, an AES-256-GCM + SHA-256 Python tool, laboratory firewall rules
 
 ```
 cryptography-network-security-exam/
-├── README.md                    <- this file
-├── risk_assessment.md           <- Task 1: assets, vulnerabilities, ranking, controls
-├── requirements.txt             <- Python dependency (cryptography)
-├── .gitignore                   <- blocks *.key, *.pem etc. from being committed
-├── src/secure_records.py        <- Task 2: encrypt / decrypt / SHA-256 integrity tool
-├── data/sample_students.csv     <- FAKE sample records (no real student data)
-├── firewall/
-│   └── records_server_firewall.sh  <- Task 3: iptables rules (apply / remove / show)
-├── filter_tests.md              <- Task 3d: commands, expected and actual results
-├── tests/
-│   ├── test_secure_records.py   <- automated unit tests
-│   ├── run_demo.sh              <- reproducible end-to-end demo
-│   └── crypto_demo_output.txt   <- recorded output of run_demo.sh
-└── report/
-    ├── report.tex               <- Task 5: LaTeX source
-    └── report.pdf               <- compiled report
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── risk_assessment.md
+├── secure_records.py
+├── test_secure_records.py
+├── run_demo.sh
+├── crypto_demo_output.txt
+├── sample_students.csv
+├── records_server_firewall.sh
+├── filter_tests.md
+├── report.tex
+└── report.pdf
 ```
 
 ## 1. Installation

@@ -26,12 +26,13 @@ cryptography-network-security-exam/
 └── report.pdf
 ```
 
+
 ## 1. Installation
 
 Requires Python 3.9+.
 
 ```bash
-git clone <YOUR GITHUB URL>
+git clone https://github.com/rubimburagad85-hash/cryptography-network-security-exam
 cd cryptography-network-security-exam
 python3 -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -44,17 +45,17 @@ The **key is stored outside the repository** (default `~/.ulk_keys/records.key`;
 
 ```bash
 # 1. create a 256-bit key (once)
-python3 src/secure_records.py genkey
+python3 secure_records.py genkey
 
 # 2. encrypt the sample file
-python3 src/secure_records.py encrypt data/sample_students.csv students.enc
+python3 secure_records.py encrypt sample_students.csv students.enc
 
 # 3. decrypt and verify it matches the original (SHA-256 comparison)
-python3 src/secure_records.py decrypt students.enc students_decrypted.csv --original data/sample_students.csv
+python3 secure_records.py decrypt students.enc students_decrypted.csv --original sample_students.csv
 
 # 4. record a SHA-256 baseline, then detect later changes
-python3 src/secure_records.py hash  data/sample_students.csv --baseline hashes.json
-python3 src/secure_records.py check data/sample_students.csv --baseline hashes.json
+python3 secure_records.py hash  sample_students.csv --baseline hashes.json
+python3 secure_records.py check sample_students.csv --baseline hashes.json
 ```
 
 Exit codes: `0` success/unchanged · `1` handled error (missing file, bad key, tampered data…) · `2` mismatch/modified file detected.
@@ -67,17 +68,17 @@ The program prints clear `[ERROR]` messages and never a raw Python traceback.
 
 ```bash
 # unit tests (10 tests: round trip, tamper, wrong key, missing/empty/invalid files ...)
-python3 -m unittest discover -s tests -v
+python3 -m unittest test_secure_records.py -v
 
 # full demonstration; output is saved as evidence
-bash tests/run_demo.sh | tee tests/crypto_demo_output.txt
+bash run_demo.sh | tee crypto_demo_output.txt
 ```
 
 ## 4. Firewall (authorised laboratory only)
 
-1. Edit the variables at the top of `firewall/records_server_firewall.sh` (`SERVER_IP`, `GUEST_NET`, `STAFF_NET`, `SERVICE_PORT`, `MODE`).
-2. Preview: `./firewall/records_server_firewall.sh apply --dry-run`
-3. Apply: `sudo ./firewall/records_server_firewall.sh apply` · Inspect: `... show` · Roll back: `sudo ... remove`
+1. Edit the variables at the top of `records_server_firewall.sh` (`SERVER_IP`, `GUEST_NET`, `STAFF_NET`, `SERVICE_PORT`, `MODE`).
+2. Preview: `./records_server_firewall.sh apply --dry-run`
+3. Apply: `sudo ./records_server_firewall.sh apply` · Inspect: `... show` · Roll back: `sudo ... remove`
 4. Run the three connection tests and record the results in `filter_tests.md`.
 
 Rule logic (in order): keep established sessions → **drop all guest traffic** to the server → **allow staff network to the named service** → **drop every other inbound attempt to that service**.
@@ -85,8 +86,9 @@ Rule logic (in order): keep established sessions → **drop all guest traffic** 
 ## 5. LaTeX report
 
 ```bash
-cd report && pdflatex report.tex && pdflatex report.tex
+pdflatex report.tex && pdflatex report.tex
 ```
 
 ## Security notes
-No passwords, keys or real student records are stored in this repository; all data in `data/` is fictitious.
+
+No passwords, keys or real student records are stored in this repository; all sample data in this repository is fictitious.
